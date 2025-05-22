@@ -2,7 +2,7 @@
   <div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white p-4">
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-blue-600">MyFitLife</h1>
+        <h1 class="text-3xl font-bold text-blue-600">MyFitTrack</h1>
         <p class="text-gray-600 mt-2">Start your fitness journey today</p>
       </div>
       
