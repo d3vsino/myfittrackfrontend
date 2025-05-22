@@ -1,7 +1,7 @@
 <template>
   <div class="container max-w-md mx-auto px-0 py-2 pb-20">
-    <!-- Mobile header with menu button -->
-    <div class="md:hidden flex items-center justify-between px-4 py-2 border-b">
+    <!-- Header with menu button -->
+    <div class="flex items-center justify-between px-4 py-2 border-b">
       <button 
         @click="sidebarOpen = !sidebarOpen"
         class="p-2 rounded-md hover:bg-gray-100"
@@ -10,27 +10,14 @@
         <Menu class="h-5 w-5" />
       </button>
       <h1 class="text-xl font-bold text-blue-600">AI Nutritionist</h1>
-      <button 
-        @click="shareToAndroid"
-        class="p-2 rounded-md hover:bg-gray-100"
-        aria-label="Share"
-      >
-        <Share2 class="h-5 w-5" />
-      </button>
+      <div class="w-9"></div> <!-- Empty div for balance -->
     </div>
 
     <div class="flex h-[calc(100vh-180px)] relative">
-      <!-- Chat sidebar overlay (mobile only) -->
-      <div 
-        v-if="sidebarOpen" 
-        class="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
-        @click="sidebarOpen = false"
-      ></div>
-      
       <!-- Chat sidebar -->
       <div 
-        class="fixed md:relative w-64 bg-white border-r border-gray-200 h-full z-50 md:z-auto transition-all duration-300 flex flex-col"
-        :class="sidebarOpen ? 'left-0' : '-left-64 md:left-0'"
+        class="absolute w-64 bg-white border-r border-gray-200 h-full z-40 transition-all duration-300 flex flex-col"
+        :class="sidebarOpen ? 'left-0' : '-left-64'"
       >
         <div class="p-4 border-b border-gray-200 flex justify-between items-center">
           <h2 class="font-bold text-gray-800">Chat History</h2>
@@ -44,7 +31,7 @@
             </button>
             <button 
               @click="sidebarOpen = false"
-              class="md:hidden p-2 rounded-md hover:bg-gray-200 text-gray-600"
+              class="p-2 rounded-md hover:bg-gray-200 text-gray-600"
             >
               <X class="h-5 w-5" />
             </button>
@@ -90,19 +77,7 @@
       </div>
       
       <!-- Main chat area -->
-      <div class="flex-1 flex flex-col overflow-hidden md:ml-64">
-        <!-- Desktop header (hidden on mobile) -->
-        <div class="hidden md:flex items-center justify-between p-4 border-b border-gray-200">
-          <h1 class="text-xl font-bold text-blue-600">AI Nutritionist</h1>
-          <button 
-            @click="shareToAndroid"
-            class="p-2 rounded-md hover:bg-gray-100 text-gray-600"
-            title="Share to Android"
-          >
-            <Share2 class="h-5 w-5" />
-          </button>
-        </div>
-        
+      <div class="flex-1 flex flex-col overflow-hidden">
         <!-- Loading state -->
         <div v-if="initialLoading" class="flex-1 flex justify-center items-center">
           <loading-spinner containerClass="p-0" />
@@ -187,15 +162,6 @@
         </div>
       </div>
     </div>
-    
-    <!-- Mobile chat menu button (fixed at bottom) -->
-    <button 
-      @click="sidebarOpen = !sidebarOpen"
-      class="md:hidden fixed bottom-24 left-4 z-20 bg-blue-600 text-white rounded-full p-3 shadow-lg"
-      aria-label="Chat menu"
-    >
-      <MessageSquare class="h-6 w-6" />
-    </button>
   </div>
 </template>
 
@@ -206,7 +172,7 @@ import TypewriterText from '../components/TypewriterText.vue'
 import MarkdownText from '../components/MarkdownText.vue'
 import AiWelcomePage from '../components/AiWelcomePage.vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
-import { MessageSquare, PlusCircle, Menu, X, Send, Share2 } from 'lucide-vue-next'
+import { MessageSquare, PlusCircle, Menu, X, Send } from 'lucide-vue-next'
 
 // State
 const showWelcome = ref(true)
@@ -352,27 +318,6 @@ const sendMessage = async () => {
   }
 }
 
-// Share to Android
-const shareToAndroid = () => {
-  // Check if Web Share API is available
-  if (navigator.share) {
-    // Format the chat messages
-    const chatText = currentSessionMessages.value
-      .map(msg => `${msg.is_user ? 'You' : 'AI'}: ${msg.message}`)
-      .join('\n\n');
-    
-    // Share the chat
-    navigator.share({
-      title: 'MyFitLife AI Chat',
-      text: chatText,
-    })
-    .catch(error => console.error('Error sharing:', error));
-  } else {
-    // Fallback for browsers that don't support Web Share API
-    alert('Sharing is not supported on this device or browser.');
-  }
-}
-
 // Fetch chat sessions
 const fetchChatSessions = async () => {
   loadingSessions.value = true
@@ -417,13 +362,3 @@ onMounted(async () => {
   initialLoading.value = false
 })
 </script>
-
-<style scoped>
-@media (min-width: 768px) {
-  .container {
-    max-width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-</style>
