@@ -2,8 +2,8 @@
   <div class="container max-w-md mx-auto px-4 py-2 pb-20">
     <h1 class="text-2xl font-bold text-blue-600 mb-6">Profile</h1>
     
-    <div v-if="loading" class="flex justify-center py-8">
-      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+    <div v-if="loading" class="flex justify-center items-center" style="min-height: 200px;">
+      <loading-spinner containerClass="p-0" />
     </div>
     
     <template v-else-if="userProfile">
@@ -149,6 +149,7 @@
 import { ref, computed, onMounted } from 'vue'
 import ProfileSettings from '../components/ProfileSettings.vue'
 import { getUserProfile } from '../services/api'
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 const userProfile = ref(null)
 const loading = ref(true)
