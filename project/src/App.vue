@@ -1,6 +1,12 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <app-header v-if="isAuthenticated" />
+    
+    <!-- Full-screen loading overlay during navigation -->
+    <div v-if="isNavigating" class="fixed inset-0 bg-white bg-opacity-80 z-50 flex items-center justify-center">
+      <loading-spinner size="normal" />
+    </div>
+    
     <main class="pt-16 pb-20">
       <page-transition>
         <router-view :key="$route.fullPath" />
@@ -12,16 +18,18 @@
 </template>
 
 <script setup>
-import { onMounted, provide, ref } from 'vue'
+import { onMounted, provide, ref, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
 import AppHeader from './components/AppHeader.vue'
 import MobileNavbar from './components/MobileNavbar.vue'
 import PageTransition from './components/PageTransition.vue'
 import FloatingActionButton from './components/FloatingActionButton.vue'
+import LoadingSpinner from './components/LoadingSpinner.vue'
 import { checkAuth, refreshToken, logout } from './services/auth'
 import { createCalorieLog, updateCalorieLog, getCalorieLogs } from './services/api'
 
 const isAuthenticated = ref(false)
+const isNavigating = ref(false)
 const router = useRouter()
 
 // Provide authentication state to all components
@@ -94,8 +102,37 @@ const setupTokenRefresh = () => {
   }, 1000 * 60 * 4) // Refresh token every 4 minutes
 }
 
+// Set up navigation guards for loading state
+const setupNavigationGuards = () => {
+  router.beforeEach((to, from, next) => {
+    // Only show loading state if navigating to a different route
+    if (to.path !== from.path) {
+      isNavigating.value = true
+    }
+    next()
+  })
+  
+  router.afterEach(() => {
+    // Add a small delay to make the loading state visible
+    setTimeout(() => {
+      isNavigating.value = false
+    }, 500)
+  })
+}
+
 onMounted(async () => {
   await checkAuthentication()
   setupTokenRefresh()
+  setupNavigationGuards()
+})
+
+const appHeader = ref(null)
+const mobileNavbar = ref(null)
+const floatingActionButton = ref(null)
+
+onMounted(() => {
+  appHeader
+  mobileNavbar
+  floatingActionButton
 })
 </script>
