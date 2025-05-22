@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center h-full py-8">
+  <div class="flex flex-col items-center justify-center h-full py-8 px-4">
     <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
       <MessageSquare class="h-8 w-8 text-blue-600" />
     </div>
