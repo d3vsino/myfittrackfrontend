@@ -12,8 +12,8 @@
       </select>
     </div>
     
-    <div v-if="loading" class="flex justify-center py-8">
-      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+    <div v-if="loading" class="flex justify-center items-center" style="min-height: 200px;">
+      <loading-spinner containerClass="p-0" />
     </div>
     
     <template v-else>
@@ -155,6 +155,7 @@
 import { ref, computed, onMounted } from 'vue'
 import MacronutrientChart from '../components/MacronutrientChart.vue'
 import { getUserProfile, getCalorieLogs } from '../services/api'
+import LoadingSpinner from '../components/LoadingSpinner.vue'
 
 // Time period options
 const timePeriods = [
