@@ -2,13 +2,13 @@
   <div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white p-4">
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold text-blue-600">MyFitLife</h1>
+        <h1 class="text-3xl font-bold text-blue-600">MyFitTrack</h1>
         <p class="text-gray-600 mt-2">Track your fitness journey</p>
       </div>
       
       <div class="bg-white rounded-lg shadow-lg p-6">
         <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
-        
+    
         <div v-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           {{ error }}
         </div>
