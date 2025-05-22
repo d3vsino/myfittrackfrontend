@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center items-center" :class="containerClass">
-    <div class="relative">
+    <div class="relative flex flex-col items-center">
       <!-- Spinner -->
       <div class="w-12 h-12 rounded-full border-4 border-blue-200 animate-spin" 
            :class="size === 'small' ? 'w-8 h-8 border-2' : 'w-12 h-12 border-4'">
