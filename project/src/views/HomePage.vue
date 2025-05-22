@@ -16,9 +16,6 @@
         <!-- Food Image Analyzer -->
         <food-image-analyzer @add-food="addFood" />
         
-        <!-- Food Search Component -->
-        <food-search @add-food="addFood" ref="foodSearchRef" />
-        
         <!-- Quick Add Food Entry -->
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
           <div class="p-4 border-b flex justify-between items-center">
@@ -68,7 +65,6 @@
 import { ref, computed, onMounted } from 'vue'
 import CalorieTracker from '../components/CalorieTracker.vue'
 import FoodEntry from '../components/FoodEntry.vue'
-import FoodSearch from '../components/FoodSearch.vue'
 import FoodImageAnalyzer from '../components/FoodImageAnalyzer.vue'
 import LoadingSpinner from '../components/LoadingSpinner.vue'
 import { getUserProfile, getCalorieLogs, createCalorieLog, updateCalorieLog } from '../services/api'
@@ -77,7 +73,6 @@ const userProfile = ref(null)
 const calorieLogs = ref([])
 const loading = ref(true)
 const showFoodEntry = ref(false)
-const foodSearchRef = ref(null)
 
 // Get today's date in YYYY-MM-DD format
 const today = new Date().toISOString().split('T')[0]
