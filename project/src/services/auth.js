@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = "https://myfittrack-production.up.railway.app/api/"
+const API_URL = "https://myfittrack-production.up.railway.app/api"
 
 // Create axios instance with auth header
 export const authAxios = axios.create({
