@@ -1,7 +1,7 @@
 <template>
   <header class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-10">
     <div class="container max-w-md mx-auto px-4 py-3 flex justify-between items-center">
-      <h1 class="text-xl font-extrabold text-blue-600">MyFitLife</h1>
+      <h1 class="text-xl font-extrabold text-blue-600">MyFitTrack</h1>
       <div class="flex items-center gap-2">
         <span v-if="userProfile" class="text-sm text-gray-600">
           {{ userProfile.first_name }}
