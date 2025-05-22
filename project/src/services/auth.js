@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = "http://localhost:8000/api"
+const API_URL = "https://my-fit-track.onrender.com/api"
 
 // Create axios instance with auth header
 export const authAxios = axios.create({
